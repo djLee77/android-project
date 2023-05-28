@@ -12,11 +12,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.safetynet.SafetyNet;
+import com.google.android.gms.safetynet.SafetyNetApi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
     ProgressBar mprogressbarofmainactivity;
+
+    private static final String SAFETY_NET_API_KEY = "YOUR_RECAPCHA_API_KEY";
+
+    private GoogleApiClient mGoogleApiClient;
+
 
 
     @Override
@@ -66,41 +77,61 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(SafetyNet.API)
+                .build();
         mlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mail=mloginemail.getText().toString().trim();
-                String password=mloginpassword.getText().toString().trim();
+                String mail = mloginemail.getText().toString().trim();
+                String password = mloginpassword.getText().toString().trim();
 
-                if(mail.isEmpty()|| password.isEmpty())
-                {
-                    Toast.makeText(getApplicationContext(),"All Field Are Required",Toast.LENGTH_SHORT).show();
-
-                }
-                else
-                {
-                    // login the user
-                    mprogressbarofmainactivity.setVisibility(View.VISIBLE);
-
-                    firebaseAuth.signInWithEmailAndPassword(mail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful())
-                            {
-                                checkmailverfication();
-                            }
-                            else
-                            {
-                                Toast.makeText(getApplicationContext(),"Account Doesn't Exist",Toast.LENGTH_SHORT).show();
-                                mprogressbarofmainactivity.setVisibility(View.INVISIBLE);
-                            }
-
-
-                        }
-                    });
+                if (mail.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "All Fields Are Required", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Perform reCAPTCHA verification
+                    SafetyNet.getClient(MainActivity.this).verifyWithRecaptcha(SAFETY_NET_API_KEY)
+                            .addOnCompleteListener(new OnCompleteListener<SafetyNetApi.RecaptchaTokenResponse>() {
+                                @Override
+                                public void onComplete(@NonNull Task<SafetyNetApi.RecaptchaTokenResponse> task) {
+                                    if (task.isSuccessful()) {
+                                        SafetyNetApi.RecaptchaTokenResponse response = task.getResult();
+                                        if (response != null && !response.getTokenResult().isEmpty()) {
+                                            // reCAPTCHA verification successful, continue with login
+                                            String token = response.getTokenResult();
+                                            // Perform Firebase login authentication
+                                            firebaseAuth.signInWithEmailAndPassword(mail, password)
+                                                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                                            if (task.isSuccessful()) {
+                                                                checkmailverfication();
+                                                            } else {
+                                                                Toast.makeText(getApplicationContext(), "Failed to login", Toast.LENGTH_SHORT).show();
+                                                                mprogressbarofmainactivity.setVisibility(View.INVISIBLE);
+                                                            }
+                                                        }
+                                                    });
+                                        } else {
+                                            // reCAPTCHA verification failed, show an error message
+                                            Toast.makeText(getApplicationContext(), "reCAPTCHA verification failed", Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        // Error occurred during reCAPTCHA verification, show an error message
+                                        Exception exception = task.getException();
+                                        if (exception instanceof ApiException) {
+                                            ApiException apiException = (ApiException) exception;
+                                            int statusCode = apiException.getStatusCode();
+                                            Toast.makeText(getApplicationContext(), "Error: " + CommonStatusCodes.getStatusCodeString(statusCode), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Error: " + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            });
                 }
             }
+
         });
 
     }
@@ -123,9 +154,5 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.signOut();
         }
     }
-
-
-
-
 
 }

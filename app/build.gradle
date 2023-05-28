@@ -47,10 +47,14 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:23.0.3'
     implementation 'com.firebaseui:firebase-ui-firestore:7.2.0'
 
+    implementation 'com.google.android.recaptcha:recaptcha:18.1.1'
+
     implementation 'com.itextpdf:itextg:5.5.10'
 
     implementation 'org.apache.poi:poi-ooxml:4.1.2'
     implementation 'javax.xml.stream:stax-api:1.0'
+
+
 
 
 }

@@ -61,6 +61,8 @@ public class signup extends AppCompatActivity {
                 else {
                     //regitered the user to firebase
                     firebaseAuth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
