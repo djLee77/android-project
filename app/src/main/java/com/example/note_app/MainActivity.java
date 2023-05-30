@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     ProgressBar mprogressbarofmainactivity;
 
-    private static final String SAFETY_NET_API_KEY = "YOUR_RECAPCHA_API_KEY";
+    private static final String SAFETY_NET_API_KEY = "6Lfx-0smAAAAALabQz4_OzjiFxNyLhPvfDRgJmvG";
 
     private GoogleApiClient mGoogleApiClient;
 
