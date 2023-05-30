@@ -53,10 +53,10 @@ public class signup extends AppCompatActivity {
                 String password=msignuppassword.getText().toString().trim();
 
                 if(mail.isEmpty() || password.isEmpty()){
-                    Toast.makeText(getApplicationContext(), "All Fields are Required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "모든 필드를 입력해주세요", Toast.LENGTH_SHORT).show();
                 }
                 else if(password.length()<7){
-                    Toast.makeText(getApplicationContext(), "Password Should Greater than 7 Digits", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "비밀번호는 7자리 이상으로 작성해주세요", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //regitered the user to firebase
@@ -66,11 +66,11 @@ public class signup extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "회원가입 완료", Toast.LENGTH_SHORT).show();
                                 sendEmailVerification();
                             }
                             else {
-                                Toast.makeText(getApplicationContext(), "Failed To Register", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "회원가입 실패", Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -85,7 +85,7 @@ public class signup extends AppCompatActivity {
             firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(getApplicationContext(), "Verification Email is Sent, Verify and Log In Again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "이메일을 확인하고 다시 로그인을 시도해주세요", Toast.LENGTH_SHORT).show();
                     firebaseAuth.signOut();
                     finish();
                     startActivity(new Intent(signup.this, MainActivity.class));
@@ -93,7 +93,7 @@ public class signup extends AppCompatActivity {
             });
         }
         else {
-            Toast.makeText(getApplicationContext(), "Failed TO Send Verification Email", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "확인 메일을 보내지 못 했습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 }

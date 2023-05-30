@@ -50,7 +50,7 @@ public class forgotpassword extends AppCompatActivity {
             public void onClick(View v) {
                 String mail = mforgotpassword.getText().toString().trim();
                 if (mail.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Enter your mail first", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "메일을 먼저 입력하세요.", Toast.LENGTH_SHORT).show();
                 } else {
                     //we have to send password recover email
 
@@ -59,11 +59,11 @@ public class forgotpassword extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
 
                             if (task.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(), "Mail Sent , You can recover your password using mail", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "메일을 보냈습니다.", Toast.LENGTH_SHORT).show();
                                 finish();
                                 startActivity(new Intent(forgotpassword.this, MainActivity.class));
                             } else {
-                                Toast.makeText(getApplicationContext(), "Email is Wrong or Account Not Exist", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "이메일이 잘못되었거나 계정이 존재하지 않습니다", Toast.LENGTH_SHORT).show();
                             }
 
 
