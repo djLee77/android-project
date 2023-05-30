@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String mail = mloginemail.getText().toString().trim();
                 String password = mloginpassword.getText().toString().trim();
-
+                //
                 if (mail.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "All Fields Are Required", Toast.LENGTH_SHORT).show();
                 } else {
