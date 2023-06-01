@@ -85,7 +85,7 @@ public class notesactivity extends AppCompatActivity {
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore=FirebaseFirestore.getInstance();
 
-        getSupportActionBar().setTitle("All Notes");
+        getSupportActionBar().setTitle("노트");
 
         mcreatenotesfab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +144,7 @@ public class notesactivity extends AppCompatActivity {
 
                         PopupMenu popupMenu=new PopupMenu(v.getContext(),v);
                         popupMenu.setGravity(Gravity.END);
-                        popupMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        popupMenu.getMenu().add("편집").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
 
@@ -157,12 +157,12 @@ public class notesactivity extends AppCompatActivity {
                             }
                         });
 
-                        popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        popupMenu.getMenu().add("삭제").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(notesactivity.this);
-                                builder.setTitle("Delete");
-                                builder.setMessage("Are you sure you want to delete?");
+                                builder.setTitle("삭제");
+                                builder.setMessage("삭제하시겠습니까?");
                                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -170,12 +170,12 @@ public class notesactivity extends AppCompatActivity {
                                         documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(v.getContext(),"This note is deleted",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(v.getContext(),"삭제되었습니다.",Toast.LENGTH_SHORT).show();
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(v.getContext(),"Failed To Delete",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(v.getContext(),"삭제 실패",Toast.LENGTH_SHORT).show();
                                             }
 
                                         });
@@ -191,7 +191,7 @@ public class notesactivity extends AppCompatActivity {
                                 return false;
                             }
                         });
-                        popupMenu.getMenu().add("Export PDF").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        popupMenu.getMenu().add("PDF 내보내기").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -219,17 +219,17 @@ public class notesactivity extends AppCompatActivity {
                                 pdfDocument.finishPage(page);
                                 try {
                                     pdfDocument.writeTo(new FileOutputStream(file));
-                                    Toast.makeText(v.getContext(),"file pdf created",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(v.getContext(),"pdf 생성 완료",Toast.LENGTH_SHORT).show();
                                 }
                                 catch (Exception e){
-                                    Toast.makeText(v.getContext(),"file pdf didn't create",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(v.getContext(),"pdf 생성 실패",Toast.LENGTH_SHORT).show();
                                 }
                                 pdfDocument.close();
 
                                 return false;
                             }
                         });
-                        popupMenu.getMenu().add("Export docx").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        popupMenu.getMenu().add("docx 내보내기").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                             @RequiresApi(api = Build.VERSION_CODES.O)
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
@@ -244,7 +244,7 @@ public class notesactivity extends AppCompatActivity {
                                     file.createNewFile();
                                 } catch (IOException e) {
                                     e.printStackTrace();
-                                    Toast.makeText(v.getContext(),"file docx didn't create",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(v.getContext(),"docx 생성 실패",Toast.LENGTH_SHORT).show();
                                 }
 
                                 try {
@@ -277,11 +277,11 @@ public class notesactivity extends AppCompatActivity {
                                     xwpfDocument.write(fileOutputStream);
 
                                     xwpfDocument.close();
-                                    Toast.makeText(v.getContext(),"file docx created",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(v.getContext(),"docx 생성 완료",Toast.LENGTH_SHORT).show();
                                 }
                                 catch (Exception e){
                                     e.printStackTrace();
-                                    Toast.makeText(v.getContext(),"file docx didn't create",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(v.getContext(),"docx 생성 실패",Toast.LENGTH_SHORT).show();
                                 }
                                 return false;
                             }

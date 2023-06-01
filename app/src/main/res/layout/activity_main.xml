@@ -41,19 +41,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="안녕하세요"
+            android:text="로그인"
             android:textColor="#24292F"
             android:textSize="42sp"
+            android:textAlignment="center"
             android:textStyle="bold">
-
-        </TextView>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Memo Application"
-            android:textColor="#FD8C73"
-            android:textSize="23sp">
 
         </TextView>
 
@@ -73,7 +65,7 @@
             android:id="@+id/loginemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Your Email"
+            android:hint="이메일"
             android:inputType="textEmailAddress"
             tools:ignore="SpeakableTextPresentCheck">
 
@@ -94,8 +86,8 @@
             android:id="@+id/loginpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Your Password"
-            tools:ignore="SpeakableTextPresentCheck">
+            android:hint="패스워드드"
+           tools:ignore="SpeakableTextPresentCheck">
 
         </EditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -116,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginStart="8dp"
-            android:text="Log In"
+            android:text="로그인"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"></TextView>
@@ -132,7 +124,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:text="Forgot Password"
+        android:text="비밀번호 찾기"
         android:textAlignment="center"
         android:textColor="@color/black"></TextView>
 
@@ -151,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginStart="8dp"
-            android:text="New User! Want To Sign In ?"
+            android:text="회원가입"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"></TextView>

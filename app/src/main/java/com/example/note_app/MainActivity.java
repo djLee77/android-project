@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 String password = mloginpassword.getText().toString().trim();
                 //
                 if (mail.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "All Fields Are Required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "모든 필드를 입력하세요", Toast.LENGTH_SHORT).show();
                 } else {
                     // Perform reCAPTCHA verification
                     SafetyNet.getClient(MainActivity.this).verifyWithRecaptcha(SAFETY_NET_API_KEY)
@@ -107,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
                                                             if (task.isSuccessful()) {
                                                                 checkmailverfication();
                                                             } else {
-                                                                Toast.makeText(getApplicationContext(), "Failed to login", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
                                                                 mprogressbarofmainactivity.setVisibility(View.INVISIBLE);
                                                             }
                                                         }
                                                     });
                                         } else {
                                             // reCAPTCHA verification failed, show an error message
-                                            Toast.makeText(getApplicationContext(), "reCAPTCHA verification failed", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "reCAPTCHA 확인 실패\n", Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
                                         // Error occurred during reCAPTCHA verification, show an error message
@@ -143,14 +143,14 @@ public class MainActivity extends AppCompatActivity {
 
         if(firebaseUser.isEmailVerified()==true)
         {
-            Toast.makeText(getApplicationContext(),"Logged In",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"로그인",Toast.LENGTH_SHORT).show();
             finish();
             startActivity(new Intent(MainActivity.this,notesactivity.class));
         }
         else
         {
             mprogressbarofmainactivity.setVisibility(View.INVISIBLE);
-            Toast.makeText(getApplicationContext(),"Verify your mail first",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"먼저 메일을 확인하세요",Toast.LENGTH_SHORT).show();
             firebaseAuth.signOut();
         }
     }

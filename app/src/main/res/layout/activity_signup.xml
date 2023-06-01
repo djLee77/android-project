@@ -27,21 +27,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="환영합니다."
+            android:text="회원가입"
+            android:textAlignment="center"
             android:textColor="#24292F"
             android:textSize="42sp"
             android:textStyle="bold">
 
         </TextView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nice To See You Here"
-            android:textColor="#FFBD4D"
-            android:textSize="23sp">
-
-        </TextView>
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -58,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/signupemail"
-            android:hint="Enter Your Email"
+            android:hint="이메일"
             android:inputType="textEmailAddress">
         </EditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/signuppassword"
-            android:hint="Enter Your Password"
+            android:hint="비밀번호"
             >
         </EditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -99,7 +92,7 @@
             android:textStyle="bold"
             android:layout_marginStart="8dp"
             android:textSize="16sp"
-            android:text="Sign Up"
+            android:text="회원가입"
             android:layout_centerInParent="true"
             android:textColor="@color/white">
 
@@ -110,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
-        android:text="Want To Login ?"
+        android:text="로그인"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:textColor="@color/black"

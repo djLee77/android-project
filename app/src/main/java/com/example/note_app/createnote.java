@@ -62,7 +62,7 @@ public class createnote extends AppCompatActivity {
                 String content=mcreatecontentofnote.getText().toString().trim();
                 if(title.isEmpty() || content.isEmpty())
                 {
-                    Toast.makeText(getApplicationContext(),"Both field are Require",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"모든 필드를 입력하세요.",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -77,13 +77,13 @@ public class createnote extends AppCompatActivity {
                     documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(getApplicationContext(),"Note Created Succesffuly",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"작성 완료",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(createnote.this,notesactivity.class));
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(),"Failed To Create Note",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"작성 실패",Toast.LENGTH_SHORT).show();
                             mprogressbarofcreatenote.setVisibility(View.INVISIBLE);
                         }
                     });
